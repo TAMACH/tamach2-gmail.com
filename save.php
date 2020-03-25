@@ -13,8 +13,8 @@ $name = $_POST["name"];
 $lastname = $_POST["lastname"];
 $password = $_POST["password"];
 
-$req = sprintf("INSERT INTO users VALUES('%s','%s','%s','%s')",$email,$name,$lastname,$password);
-$res = $db->query($req);
+$stmt = $pdo->prepare("INSERT INTO users VALUES(':email',':name',':lastname',':password')");
+$res = $stmt->execute([':email' => $email,':name' => $name,':lastname' => $lastname,':password' => $password]);
 if (!$res || $res->rowCount()==0) {
     echo "error";
     exit();
